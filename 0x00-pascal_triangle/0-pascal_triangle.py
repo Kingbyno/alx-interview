@@ -1,22 +1,27 @@
+#!/usr/bin/python3
+"""Pascal Triangle Interview Challenge for Alx project conducted by Dr Marcus"""
+
+
 def pascal_triangle(n):
+    """returns a list of lists of numbers
+    representing the pascal triangle"""
     if n <= 0:
         return []
 
-    triangle = []
+    pascal_triangle = [0] * n
+
     for i in range(n):
-        row = []
-        for j in range(i + 1):
-            if j == 0 or j == i:
-                row.append(1)
-            else:
-                row.append(triangle[i - 1][j - 1] + triangle[i - 1][j])
-        triangle.append(row)
+        # This code snipet define and explained that  a row is  fill first and last idx with 1
+        row = [0] * (i+1)
+        row[0] = 1
+        row[len(row) - 1] = 1
 
-    return triangle
+        for j in range(1, i):
+            if j > 0 and j < len(row):
+                x = pascal_triangle[i - 1][j]
+                y = pascal_triangle[i - 1][j - 1]
+                row[j] = x + y
 
-# Test the function
-n = 5
-result = pascal_triangle(n)
-for row in result:
-    print(row)
+        pascal_triangle[i] = row
 
+    return pascal_triangle
